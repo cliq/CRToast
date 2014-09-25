@@ -1041,14 +1041,18 @@ static CGFloat const CRStatusBarViewUnderStatusBarYOffsetAdjustment = -5;
     CGFloat statusBarYOffset = self.toast.displayUnderStatusBar ? (CRGetStatusBarHeight()+CRStatusBarViewUnderStatusBarYOffsetAdjustment) : 0;
     contentFrame.size.height = CGRectGetHeight(contentFrame) - statusBarYOffset;
     
-    self.imageView.frame = CGRectMake(0,
+    self.imageView.frame = CGRectMake(kCRStatusBarViewNoImageLeftContentInset,
                                       statusBarYOffset,
-                                      imageSize.width == 0 ?
-                                      0 :
-                                      CGRectGetHeight(contentFrame),
+                                      imageSize.width + kCRStatusBarViewNoImageLeftContentInset + kCRStatusBarViewNoImageRightContentInset,
                                       imageSize.height == 0 ?
                                       0 :
                                       CGRectGetHeight(contentFrame));
+
+    // Old layout from original git repo
+//    self.imageView.frame = CGRectMake(0,
+//                                      statusBarYOffset,
+//                                      imageSize.width == 0 ? 0 : CGRectGetHeight(contentFrame),
+//                                      imageSize.height == 0 ? 0 : CGRectGetHeight(contentFrame));
     CGFloat x = imageSize.width == 0 ? kCRStatusBarViewNoImageLeftContentInset : CGRectGetMaxX(_imageView.frame);
     CGFloat width = CGRectGetWidth(contentFrame)-x-kCRStatusBarViewNoImageRightContentInset;
     
